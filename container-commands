@@ -1,0 +1,10 @@
+test
+run
+build
+
+ef
+ef migrations list
+ef database update
+
+outdated
+outdated --upgrade

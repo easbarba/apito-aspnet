@@ -1,0 +1,37 @@
+stages:
+  - build
+  - test
+
+variables:
+  POSTGRES_DB: "$SQL_DATABASE"
+  POSTGRES_HOST: "$SQL_HOST"
+  POSTGRES_PORT: "$SQL_PORT"
+  POSTGRES_VERSION: "$SQL_VERSION"
+  POSTGRES_USER: "$SQL_USERNAME"
+  POSTGRES_PASSWORD: "$SQL_PASSWORD"
+
+services:
+  - name: postgres:$SQL_VERSION
+    alias: db
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'main'
+
+Dependencies:
+  stage: build
+  image: registry.gitlab.com/easbarba/apito-aspnet:$APITO_VERSION
+  script:
+    - dotnet restore
+    - dotnet build --no-restore
+
+Integration Tests:
+  stage: test
+  image: registry.gitlab.com/easbarba/apito-aspnet:$APITO_VERSION
+  before_script:
+    - dotnet ef database drop --force --project ./Apito
+    - dotnet ef database update --project ./Apito
+  script:
+    - dotnet test

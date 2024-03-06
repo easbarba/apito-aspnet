@@ -1,0 +1,31 @@
+get home: GET /
+
+get all referees: GET /v1/referees
+get one referee: GET /v1/referees/ID
+search referee: GET /v1/referee?QUERY
+delete referee: DELETE /v1/referees/ID
+modify referee: POST /v1/referees/ID
+
+get all games: GET /v1/games
+get one game: GET /v1/games/ID
+search game: GET /v1/game?QUERY
+delete game: DELETE /v1/games/ID
+modify game: POST /v1/games/ID
+
+get all matches: GET /v1/matches
+get one match: GET /v1/matches/ID
+search match: GET /v1/matches?QUERY
+delete match: DELETE /v1/matches/ID
+modify match: POST /v1/matches/ID
+
+get all teams: GET /v1/teams
+get one team: GET /v1/teams/ID
+search team: GET /v1/teams?QUERY
+delete team: DELETE /v1/teams/ID
+modify team: POST /v1/teams/ID
+
+get all leagues: GET /v1/leagues
+get one league: GET /v1/leagues/ID
+search league: GET /v1/leagues?QUERY
+delete league: DELETE /v1/leagues/ID
+modify league: POST /v1/leagues/ID
