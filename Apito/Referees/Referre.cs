@@ -13,6 +13,19 @@
 * along with apito-aspnet. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace Apito.DTOs;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Apito.Common;
 
-public record ResponseDTO<T>(T data);
+namespace Apito.Referees;
+
+[Table("referees")]
+public class Referee : BaseEntity
+{
+    [Required]
+    [MaxLength(400)]
+    public string name { get; set; } = String.Empty;
+
+    [Required]
+    public string state { get; set; } = String.Empty;
+}

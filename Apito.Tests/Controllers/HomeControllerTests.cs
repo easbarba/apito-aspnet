@@ -16,8 +16,9 @@
 namespace ApitoAspnet.Tests.Controllers;
 
 using System.Net.Http.Json;
-using Apito.DTOs;
+using Apito.Common;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
 
 public class HomeControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
@@ -34,11 +35,12 @@ public class HomeControllerTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task Home_ReturnsWelcomeMessage()
     {
         var response = await client.GetAsync("/");
-        ResponseDTO<String>? result = response
-            .Content.ReadFromJsonAsync<ResponseDTO<String>>()
-            .Result;
+        ResponseDTO<String>? result = await response.Content.ReadFromJsonAsync<
+            ResponseDTO<String>
+        >();
 
         response.EnsureSuccessStatusCode();
         Assert.Equal("Welcome to Apito!", result?.data);
+        Assert.Null(result?.data);
     }
 }

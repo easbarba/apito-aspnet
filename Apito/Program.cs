@@ -13,7 +13,7 @@
 * along with apito-aspnet. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Apito.DTOs;
+using Apito.Common;
 using Apito.Helpers;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.OpenApi.Models;
@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(cfg =>
     {
-        cfg.WithOrigins(builder.Configuration["AllowedOrigins"]);
+        cfg.WithOrigins(builder.Configuration["AllowedOrigins"] ?? "");
         cfg.AllowAnyHeader();
         cfg.AllowAnyMethod();
     });
@@ -39,6 +39,7 @@ builder.Services.AddCors(options =>
     );
 });
 builder.Services.AddControllers();
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -58,6 +59,7 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddLifetimeServices();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();

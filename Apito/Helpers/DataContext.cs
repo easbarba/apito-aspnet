@@ -14,6 +14,7 @@
 */
 
 // using Bogus;
+using Apito.Referees;
 using Microsoft.EntityFrameworkCore;
 
 namespace Apito.Helpers
@@ -28,7 +29,12 @@ namespace Apito.Helpers
             options.UseNpgsql(ConnectionString());
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+        public DbSet<Referee> referees => Set<Referee>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            new RefereeSeed().Generate(modelBuilder);
+        }
 
         public static string ConnectionString()
         {
